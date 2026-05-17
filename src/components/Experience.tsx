@@ -3,49 +3,29 @@ import { Briefcase, Calendar } from "lucide-react";
 
 const experiences = [
   {
-    title: "Senior Full Stack Developer",
-    company: "TechCorp Inc.",
-    period: "2021 - Present",
-    description: "Led development of cloud-native applications using React, Node.js, and AWS. Mentored junior developers and implemented CI/CD pipelines.",
+    title: "Intern Full Stack Developer",
+    company: "Diskominfo Kabupaten Mojokerto",
+    period: "2023",
+    description:
+      "I developed a web-based application submission system for government agencies (OPD) andparticipated in system debugging to ensure functionality, stability, and optimal performance.",
     achievements: [
-      "Reduced application load time by 60%",
-      "Led a team of 5 developers",
-      "Implemented microservices architecture"
-    ]
+      "Built web submission system for OPD.",
+      "Optimized server performance through debugging.",
+    ],
   },
   {
-    title: "Full Stack Developer",
-    company: "Digital Solutions Ltd.",
-    period: "2019 - 2021",
-    description: "Developed and maintained multiple client projects using modern web technologies. Collaborated with designers and product managers.",
+    title: "Intern Full Stack Developer",
+    company: "PT. Nusatama Jaya Sakti",
+    period: "April 2026 - Present",
+    description:
+      "Developed and maintained multiple client projects using modern web technologies. Collaborated with Product Managers using Git-based CI/CD pipelines to ensure streamlined development workflows.",
     achievements: [
-      "Built 15+ production applications",
-      "Improved code quality by 40%",
-      "Introduced automated testing practices"
-    ]
+      "Developed SIAKAD and diverse web applications.",
+      "Built websites using modern CMS platforms.",
+      "Created custom Google Maps scraper tools.",
+      "Collaborated efficiently using Git.",
+    ],
   },
-  {
-    title: "Frontend Developer",
-    company: "StartupXYZ",
-    period: "2018 - 2019",
-    description: "Created responsive web applications with React and TypeScript. Focused on performance optimization and user experience.",
-    achievements: [
-      "Achieved 95+ Lighthouse scores",
-      "Reduced bundle size by 50%",
-      "Implemented design system"
-    ]
-  },
-  {
-    title: "Junior Developer",
-    company: "Web Agency Co.",
-    period: "2017 - 2018",
-    description: "Started my professional journey building websites and learning modern development practices.",
-    achievements: [
-      "Completed 20+ client projects",
-      "Mastered React and TypeScript",
-      "Earned multiple certifications"
-    ]
-  }
 ];
 
 export const Experience = () => {
@@ -57,10 +37,10 @@ export const Experience = () => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            setVisibleItems(prev => [...new Set([...prev, index])]);
+            setVisibleItems((prev) => [...new Set([...prev, index])]);
           }
         },
-        { threshold: 0.3 }
+        { threshold: 0.3 },
       );
 
       if (itemRefs.current[index]) {
@@ -70,7 +50,7 @@ export const Experience = () => {
       return observer;
     });
 
-    return () => observers.forEach(observer => observer.disconnect());
+    return () => observers.forEach((observer) => observer.disconnect());
   }, []);
 
   return (
@@ -94,18 +74,22 @@ export const Experience = () => {
             {experiences.map((exp, index) => (
               <div
                 key={index}
-                ref={el => itemRefs.current[index] = el}
+                ref={(el) => (itemRefs.current[index] = el)}
                 className={`relative transition-all duration-700 ${
-                  visibleItems.includes(index) 
-                    ? 'opacity-100 translate-x-0' 
-                    : `opacity-0 ${index % 2 === 0 ? '-translate-x-10' : 'translate-x-10'}`
+                  visibleItems.includes(index)
+                    ? "opacity-100 translate-x-0"
+                    : `opacity-0 ${index % 2 === 0 ? "-translate-x-10" : "translate-x-10"}`
                 }`}
               >
-                <div className={`flex flex-col md:flex-row gap-8 items-center ${
-                  index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                }`}>
+                <div
+                  className={`flex flex-col md:flex-row gap-8 items-center ${
+                    index % 2 === 0 ? "md:flex-row-reverse" : ""
+                  }`}
+                >
                   {/* Content */}
-                  <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : ''}`}>
+                  <div
+                    className={`flex-1 ${index % 2 === 0 ? "md:text-right" : ""}`}
+                  >
                     <div className="p-6 rounded-2xl bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-xl border border-primary/30 card-glow">
                       <div className="flex items-center gap-3 mb-3">
                         <Briefcase className="w-5 h-5 text-primary" />
@@ -113,16 +97,16 @@ export const Experience = () => {
                           {exp.title}
                         </h3>
                       </div>
-                      
+
                       <div className="flex items-center gap-2 mb-4 text-primary font-medium">
                         <Calendar className="w-4 h-4" />
                         <span>{exp.period}</span>
                       </div>
-                      
+
                       <p className="text-lg font-semibold text-muted-foreground mb-3">
                         {exp.company}
                       </p>
-                      
+
                       <p className="text-muted-foreground mb-4">
                         {exp.description}
                       </p>

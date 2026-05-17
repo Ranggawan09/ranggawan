@@ -1,46 +1,49 @@
 import { useEffect, useRef, useState } from "react";
-import { Code2, Database, Palette, Server, Smartphone, Wrench } from "lucide-react";
+import {
+  Code2,
+  Database,
+  Palette,
+  Server,
+  Smartphone,
+  Wrench,
+} from "lucide-react";
 
 const skillCategories = [
   {
     icon: Code2,
     title: "Frontend",
     skills: [
-      { name: "React/Next.js", level: 95 },
-      { name: "TypeScript", level: 90 },
+      { name: "React/Next.js", level: 90 },
+      { name: "TypeScript", level: 85 },
       { name: "Tailwind CSS", level: 95 },
-      { name: "Vue.js", level: 80 },
-    ]
+    ],
   },
   {
     icon: Server,
     title: "Backend",
     skills: [
-      { name: "Node.js", level: 90 },
+      { name: "Laravel", level: 90 },
       { name: "Python", level: 85 },
-      { name: "Express/Fastify", level: 88 },
-      { name: "GraphQL", level: 82 },
-    ]
+      { name: "Node.Js", level: 88 },
+    ],
   },
   {
     icon: Database,
     title: "Database",
     skills: [
-      { name: "PostgreSQL", level: 88 },
+      { name: "MySQL", level: 88 },
       { name: "MongoDB", level: 85 },
-      { name: "Redis", level: 80 },
-      { name: "Prisma", level: 90 },
-    ]
+      { name: "PostgreSQL", level: 80 },
+    ],
   },
   {
     icon: Smartphone,
     title: "Mobile",
     skills: [
-      { name: "React Native", level: 85 },
       { name: "Flutter", level: 75 },
       { name: "iOS Development", level: 70 },
       { name: "Android Development", level: 70 },
-    ]
+    ],
   },
   {
     icon: Wrench,
@@ -49,8 +52,7 @@ const skillCategories = [
       { name: "Docker/K8s", level: 85 },
       { name: "AWS/GCP", level: 88 },
       { name: "CI/CD", level: 90 },
-      { name: "Terraform", level: 75 },
-    ]
+    ],
   },
   {
     icon: Palette,
@@ -59,8 +61,7 @@ const skillCategories = [
       { name: "Figma", level: 85 },
       { name: "UI/UX Design", level: 80 },
       { name: "Responsive Design", level: 95 },
-      { name: "Animation", level: 85 },
-    ]
+    ],
   },
 ];
 
@@ -73,10 +74,10 @@ export const Skills = () => {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            setVisibleCategories(prev => [...new Set([...prev, index])]);
+            setVisibleCategories((prev) => [...new Set([...prev, index])]);
           }
         },
-        { threshold: 0.2 }
+        { threshold: 0.2 },
       );
 
       if (categoryRefs.current[index]) {
@@ -86,7 +87,7 @@ export const Skills = () => {
       return observer;
     });
 
-    return () => observers.forEach(observer => observer.disconnect());
+    return () => observers.forEach((observer) => observer.disconnect());
   }, []);
 
   return (
@@ -105,11 +106,11 @@ export const Skills = () => {
           {skillCategories.map((category, categoryIndex) => (
             <div
               key={categoryIndex}
-              ref={el => categoryRefs.current[categoryIndex] = el}
+              ref={(el) => (categoryRefs.current[categoryIndex] = el)}
               className={`p-6 rounded-2xl bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-xl border border-primary/30 card-glow transition-all duration-700 ${
                 visibleCategories.includes(categoryIndex)
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-10'
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
               }`}
               style={{ transitionDelay: `${categoryIndex * 100}ms` }}
             >
@@ -137,14 +138,14 @@ export const Skills = () => {
                       <div
                         className={`h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-1000 ease-out ${
                           visibleCategories.includes(categoryIndex)
-                            ? 'opacity-100'
-                            : 'opacity-0'
+                            ? "opacity-100"
+                            : "opacity-0"
                         }`}
                         style={{
                           width: visibleCategories.includes(categoryIndex)
                             ? `${skill.level}%`
-                            : '0%',
-                          transitionDelay: `${(categoryIndex * 100) + (skillIndex * 100)}ms`
+                            : "0%",
+                          transitionDelay: `${categoryIndex * 100 + skillIndex * 100}ms`,
                         }}
                       />
                     </div>

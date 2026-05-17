@@ -11,17 +11,58 @@ export const Contact = () => {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent successfully! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      toast.error("Web3Forms Access Key is missing! Please configure VITE_WEB3FORMS_ACCESS_KEY in your .env file.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    const toastId = toast.loading("Sending your message...");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      const result = await response.json();
+      toast.dismiss(toastId);
+
+      if (result.success) {
+        toast.success("Message sent successfully! I'll get back to you soon.");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        toast.error(result.message || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error("Network error. Please check your internet connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -45,49 +86,56 @@ export const Contact = () => {
                 Let's Connect
               </h3>
               <p className="text-muted-foreground mb-8 leading-relaxed">
-                I'm always interested in hearing about new projects and opportunities. 
-                Whether you have a question or just want to say hi, feel free to reach out!
+                I'm always interested in hearing about new projects and
+                opportunities. Whether you have a question or just want to say
+                hi, feel free to reach out!
               </p>
 
               <div className="space-y-6">
-                <div className="flex items-start gap-4 p-4 rounded-xl bg-card/50 border border-primary/20 hover:border-primary/50 transition-colors">
+                <a
+                  href="mailto:ranggawan09@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-4 p-4 rounded-xl bg-card/50 border border-primary/20 hover:border-primary/50 transition-colors cursor-pointer group"
+                >
                   <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Email</p>
-                    <a 
-                      href="mailto:alex@example.com" 
-                      className="text-foreground hover:text-primary transition-colors font-medium"
-                    >
-                      alex@example.com
-                    </a>
+                    <span className="text-foreground group-hover:text-primary transition-colors font-medium">
+                      ranggawan09@gmail.com
+                    </span>
                   </div>
-                </div>
+                </a>
 
-                <div className="flex items-start gap-4 p-4 rounded-xl bg-card/50 border border-primary/20 hover:border-primary/50 transition-colors">
+                <a
+                  href="https://api.whatsapp.com/send?phone=628980625805&text=hai..."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-4 p-4 rounded-xl bg-card/50 border border-primary/20 hover:border-primary/50 transition-colors cursor-pointer group"
+                >
                   <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
                     <Phone className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Phone</p>
-                    <a 
-                      href="tel:+1*********" 
-                      className="text-foreground hover:text-primary transition-colors font-medium"
-                    >
-                      +1 (***) ***-***
-                    </a>
+                    <span className="text-foreground group-hover:text-primary transition-colors font-medium">
+                      +62 898-0625-805
+                    </span>
                   </div>
-                </div>
+                </a>
 
                 <div className="flex items-start gap-4 p-4 rounded-xl bg-card/50 border border-primary/20 hover:border-primary/50 transition-colors">
                   <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
                     <MapPin className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Location</p>
+                    <p className="text-sm text-muted-foreground mb-1">
+                      Location
+                    </p>
                     <p className="text-foreground font-medium">
-                      San Francisco, CA
+                      Jombang, East Java, Indonesia
                     </p>
                   </div>
                 </div>
@@ -100,7 +148,10 @@ export const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="p-8 rounded-2xl bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-xl border border-primary/30 card-glow space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mb-2 text-foreground"
+                  >
                     Your Name
                   </label>
                   <Input
@@ -115,7 +166,10 @@ export const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-2 text-foreground"
+                  >
                     Email Address
                   </label>
                   <Input
@@ -131,7 +185,10 @@ export const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium mb-2 text-foreground"
+                  >
                     Message
                   </label>
                   <Textarea
@@ -146,13 +203,23 @@ export const Contact = () => {
                   />
                 </div>
 
-                <Button 
+                <Button
                   type="submit"
                   size="lg"
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/50 hover:shadow-primary/80 transition-all"
+                  disabled={isSubmitting}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/50 hover:shadow-primary/80 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <Send className="mr-2 h-5 w-5" />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-t-2 border-r-2 border-primary-foreground rounded-full animate-spin mr-2" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="mr-2 h-5 w-5" />
+                      Send Message
+                    </>
+                  )}
                 </Button>
               </div>
             </form>

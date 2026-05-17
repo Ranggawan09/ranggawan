@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Github, Linkedin, Mail } from "lucide-react";
+import { Download, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import heroBackground from "@/assets/hero-bg.jpg";
-import profileImage from "@/assets/profile.jpg";
+import profileImage from "@/assets/me.webp";
 import downloadCV from "@/files/cv.pdf";
 
 export const Hero = () => {
@@ -32,7 +32,7 @@ export const Hero = () => {
   };
 
   const handleMail = () => {
-    window.location.href = "mailto:alex@example.com";
+    window.location.href = "mailto:ranggawan09@gmail.com";
   };
 
   return (
@@ -53,27 +53,31 @@ export const Hero = () => {
           className="absolute top-20 left-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-glow"
           style={{
             transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
-            transition: "transform 0.3s ease-out"
+            transition: "transform 0.3s ease-out",
           }}
         />
         <div
           className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse-glow"
           style={{
             transform: `translate(${mousePosition.x * -0.5}px, ${mousePosition.y * -0.5}px)`,
-            transition: "transform 0.3s ease-out"
+            transition: "transform 0.3s ease-out",
           }}
         />
       </div>
 
       {/* Hero Content */}
-      <div className={`relative z-10 max-w-6xl mx-auto px-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <div
+        className={`relative z-10 max-w-6xl mx-auto px-6 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+      >
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div className="space-y-6 animate-slide-in-left">
             <div className="space-y-2">
               <p className="text-primary text-lg font-medium">Hello, I'm</p>
               <h1 className="text-5xl md:text-7xl font-bold">
-                <span className="gradient-text text-glow-intense">Alex Chen</span>
+                <span className="gradient-text text-glow-intense">
+                  Rangga Hermawan
+                </span>
               </h1>
               <h2 className="text-3xl md:text-4xl font-semibold text-muted-foreground">
                 Full Stack Developer
@@ -81,34 +85,47 @@ export const Hero = () => {
             </div>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Crafting innovative digital experiences with cutting-edge technologies.
-              Specialized in React, Node.js, and cloud architecture.
+              Crafting innovative digital experiences with cutting-edge
+              technologies. Specialized in React, Node.js, and cloud
+              architecture.
             </p>
 
             <div className="flex flex-wrap gap-4">
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/50 hover:shadow-primary/80 transition-all"
-                onClick={() => { handleDownload() }}
+                asChild
               >
-                <Download className="mr-2 h-5 w-5" />
-                Download CV
+                <a
+                  href="https://api.whatsapp.com/send?phone=628980625805&text=hai,saya ingin melihat cv anda"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Download className="mr-2 h-5 w-5" />
+                  Download CV
+                </a>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="border-primary/50 hover:bg-primary/10 hover:border-primary"
-                onClick={()=>handleMail()}
+                asChild
               >
-                <Mail className="mr-2 h-5 w-5" />
-                Contact Me
+                <a
+                  href="mailto:ranggawan09@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Mail className="mr-2 h-5 w-5" />
+                  Contact Me
+                </a>
               </Button>
             </div>
 
             {/* Social Links */}
             <div className="flex gap-4 pt-4">
               <a
-                href="https://github.com"
+                href="https://github.com/Ranggawan09"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-card border border-border hover:border-primary hover:bg-primary/10 transition-all hover:scale-110"
@@ -116,7 +133,7 @@ export const Hero = () => {
                 <Github className="h-6 w-6" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/ranggawan/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-card border border-border hover:border-primary hover:bg-primary/10 transition-all hover:scale-110"
@@ -124,7 +141,17 @@ export const Hero = () => {
                 <Linkedin className="h-6 w-6" />
               </a>
               <a
-                href="mailto:alex@example.com"
+                href="https://www.instagram.com/ranggawan._"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-card border border-border hover:border-primary hover:bg-primary/10 transition-all hover:scale-110"
+              >
+                <Instagram className="h-6 w-6" />
+              </a>
+              <a
+                href="mailto:ranggawan09@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-3 rounded-full bg-card border border-border hover:border-primary hover:bg-primary/10 transition-all hover:scale-110"
               >
                 <Mail className="h-6 w-6" />
@@ -147,12 +174,13 @@ export const Hero = () => {
               <div className="relative">
                 <img
                   src={profileImage}
-                  alt="Alex Chen"
+                  alt="Rangga Hermawan"
                   className="w-full rounded-2xl shadow-2xl"
                 />
                 {/* Floating Elements */}
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-2xl animate-float shadow-lg shadow-primary/50" />
-                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-secondary to-accent rounded-2xl animate-float shadow-lg shadow-secondary/50"
+                <div
+                  className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-secondary to-accent rounded-2xl animate-float shadow-lg shadow-secondary/50"
                   style={{ animationDelay: "1s" }}
                 />
               </div>
