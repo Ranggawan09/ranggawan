@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Filter Efek Cahaya Neon (Glow) -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    
+    <!-- Gradasi Neon Cyberpunk -->
+    <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="50%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#ff007f" />
+    </linearGradient>
+    
+    <!-- Gradasi Latar Belakang Gelap Luar Angkasa -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#030712" />
+      <stop offset="100%" stop-color="#0b1329" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Latar Belakang Bulat Gelap -->
+  <rect width="512" height="512" rx="128" fill="url(#bg-grad)" />
+  
+  <!-- Bingkai Heksagon Luar yang Redup -->
+  <path d="M 256 50 L 434 153 L 434 359 L 256 462 L 78 359 L 78 153 Z" fill="none" stroke="url(#neon-grad)" stroke-width="4" opacity="0.2" />
+  
+  <!-- Bingkai Heksagon Dalam dengan Cahaya Neon -->
+  <path d="M 256 64 L 422 160 L 422 352 L 256 448 L 90 352 L 90 160 Z" fill="none" stroke="url(#neon-grad)" stroke-width="12" stroke-linejoin="round" filter="url(#glow)" />
+  
+  <!-- Huruf 'R' Futuristik di Tengah -->
+  <g filter="url(#glow)" transform="translate(10, 0)">
+    <!-- Tiang R -->
+    <path d="M 195 160 L 195 352" stroke="url(#neon-grad)" stroke-width="36" stroke-linecap="round" />
+    <!-- Loop R -->
+    <path d="M 195 160 L 270 160 C 330 160 330 250 270 250 L 195 250" stroke="url(#neon-grad)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+    <!-- Kaki R -->
+    <path d="M 250 250 L 315 352" stroke="url(#neon-grad)" stroke-width="36" stroke-linecap="round" />
+  </g>
+  
+  <!-- Elemen Dekoratif Dot Tech -->
+  <circle cx="380" cy="130" r="10" fill="#00f0ff" filter="url(#glow)" />
+  <circle cx="132" cy="382" r="10" fill="#ff007f" filter="url(#glow)" />
+</svg>
